@@ -5,16 +5,16 @@ echo $SEC_NUMBER
 echo "Enter your username:"
 read USERNAME
 
-DB_USERNAME=$($PSQL "SELECT username FROM users WHERE username=INITCAP('$USERNAME')")
+DB_USERNAME=$($PSQL "SELECT username FROM users WHERE username='$USERNAME'")
 
 COUNT=0
 if [[ -z $DB_USERNAME ]]
 then
-INSERT_USER_RESULT=$($PSQL "INSERT INTO users(username) VALUES(INITCAP('$USERNAME'))")
+INSERT_USER_RESULT=$($PSQL "INSERT INTO users(username) VALUES('$USERNAME')")
 # 45
  if [[ $INSERT_USER_RESULT == "INSERT 0 1" ]]
  then
- DB_USERNAME=$($PSQL "SELECT username FROM users WHERE username=INITCAP('$USERNAME')")
+ DB_USERNAME=$($PSQL "SELECT username FROM users WHERE username='$USERNAME'")
 USER_ID=$($PSQL "SELECT user_id FROM users WHERE username='$DB_USERNAME'")
 # echo $USER_ID
 # echo "Welcome, $(echo $DB_USERNAME | sed 's/ ././' )! It looks like this is your first time here."
@@ -91,5 +91,6 @@ done
 
 
 fi
+
 
 
